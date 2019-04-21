@@ -709,7 +709,7 @@ var apmCollectData = apmCollectData || [];
 
                 const notices =  window.dataCache.notices;
                 if(notices) {
-                    callback && callback()
+                    callBack && callBack()
                     return this
                 }
                 source.get(tenUrlPath + '/unichartsapi/v1/displays/notices', data, function (res) {
