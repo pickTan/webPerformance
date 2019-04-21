@@ -584,11 +584,14 @@ var apmCollectData = apmCollectData || [];
              *  初始化UI
              */
             initUi: function () {
-                var _this = this,
-                    el = $('.list-container'),
+                var _this = this
+                if(!window.dataCache.dynamic){
+               var  el = $('.list-container'),
                     htl = template.createFragment(listData.now, 'index', {});
                 $('.content').html(htl)
                 listData.notes || $('.go-live-home-layer').addClass('not-notes') //如果note不存在，修正直播间的位置
+
+                }
                 _this.nowUi().initEvent().lazyListImg();
                 // document.getElementById(id).scrollIntoView(true)
                 return this;
@@ -673,7 +676,7 @@ var apmCollectData = apmCollectData || [];
 
                 const dynamic =  window.dataCache.dynamic;
                 if(dynamic) {
-                    callback && callback()
+                    resCallback(dynamic);
                     return this
                 }
 
@@ -709,7 +712,7 @@ var apmCollectData = apmCollectData || [];
 
                 const notices =  window.dataCache.notices;
                 if(notices) {
-                    callBack && callBack()
+                    resCallback(notices)
                     return this
                 }
                 source.get(tenUrlPath + '/unichartsapi/v1/displays/notices', data, function (res) {
@@ -736,7 +739,7 @@ var apmCollectData = apmCollectData || [];
 
                 const banner =  window.dataCache.banner;
                 if(banner) {
-                    callback && callback()
+                    resCallback(banner)
                     return this
                 }
                 source.get(tenUrlPath + '/unichartsapi/v1/displays/banner', data, function (res) {
