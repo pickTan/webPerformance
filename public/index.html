@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="msapplication-tap-highlight" content="no"/>
+    <meta http-equiv="Access-Control-Allow-Origin" content="*"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0,viewport-fit=cover">
+    <title>由你音乐榜</title>
+    <script>
+        /**
+         * 获取1：1比例设计搞
+         */
+        (function (window) {
+            function isPcFun() {
+                var ua = navigator.userAgent;
+                var flag = false;
+                if (ua.indexOf("Windows NT") !== -1) flag = true;
+                if (ua.indexOf("Intel Mac OS X") !== -1) flag = true;
+                return flag;
+            }
+
+            function initRem(maxSize, uiSize) {
+                var clientWidth = document.documentElement.clientWidth,
+                    maxWidth = maxSize,
+                    flag = clientWidth > maxWidth && isPcFun(),
+                    deveidWidth = flag ? maxWidth : clientWidth,
+                    designUi = uiSize,
+                    scale = deveidWidth / designUi,
+                    bodyEl = document.documentElement,
+                    bodySize = deveidWidth * 100 / designUi;
+                bodyEl.style.fontSize = bodySize + 'px';
+                bodyEl.setAttribute('target-scale', scale);
+                if (flag) {
+                    bodyEl.style.margin = "auto";
+                    bodyEl.style.width = maxWidth + 'px';
+                }
+            }
+
+            window.initScale = function () {
+                initRem(1080, 720);
+            }
+
+            return initScale();
+        })(window);
+    </script>
+	<!-- build:css css/base.css -->
+    <link rel="stylesheet" href="/css/base.css"/>
+    <link rel="stylesheet" href="/css/iosselect.css"/>
+	<!-- endbuild -->
+</head>
+<body>
+<div class="content">
+    <div class="banner">
+        <img src="https://webimg.kgimg.com/76348db18e2e00abbe01d6fc76ced0b8.png">
+        <ul class="banner-info"></ul>
+    </div>
+    <div class="list">
+        <ul class="list-options one-px-bottom">
+            <li class="list-option-week list-option-choice">本周实时榜</li>
+            <li class="list-option-periodList">往期榜单</li>
+        </ul>
+        <div class="list-container">
+        </div>
+    </div>
+</div>
+
+<!---------layer------------>
+<div class="rule-layer visibility">
+    <div class="rule-info">
+        <div class="rule-banner"></div>
+        <!--<h3>UNI音榜</h3>-->
+        <!--<p>数据来源：酷狗</p>-->
+        <!--<p>排序方式：按点赞数高低排序</p>-->
+        <!--<p>更新周期：每周</p>-->
+        <p class="info-t">一、榜单介绍</p>
+        <p>由你音乐榜（Yo！Bang），是TME腾讯音乐娱乐集团推出的旨在反映华语乐坛最新歌曲热度的音乐榜单。</p>
+        <p>榜单数据由QQ音乐、酷狗、酷我三大平台的用户产生。除音源播放之外，还统计了歌曲收藏、缓存、分享、MV播放、数字专辑销量等数据。通过多维度的统计算法，力求打造最具公信力的榜单。</p>
+        <p class="info-t">二、榜单收录歌曲范围</p>
+        <p>8周内正式发布的华语新歌，授权并入库TME腾讯音乐娱乐集团，即可参与打榜。以下歌曲类型除外：</p>
+        <p>1.词曲著作归属不明确、未获得版权方授权的歌曲；</p>
+        <p>2.老歌新唱、精选集再版发行、翻唱类歌曲；</p>
+        <p>3.用户自制、DEMO、试听版、非完整版歌曲；</p>
+        <p>4.商演现场版、演唱会、节目中所演唱歌曲；</p>
+        <p>5.纯乐器演奏、背景音乐类；</p>
+        <p>6.歌词低俗、内容不符合国家相关规定的歌曲。</p>
+        <p class="info-t">三、榜单构成</p>
+        <p>由你音乐榜分为“本周实时榜”和“往期榜单”两部分。</p>
+        <p>本周实时榜：展示前100名上榜歌曲的动态变化，数据每十分钟更新一次。</p>
+        <p>往期榜单：展示上周统计截止后，最终进入前100的歌曲排名及数据详情。</p>
+        <p>榜单统计周期：每周日20点0分 ~ 下周日19点59分。</p>
+        <p class="info-t">四、榜单规则</p>
+        <p>1.榜单数据统计：</p>
+        <p>为确保榜单数据来源真实可靠，由你音乐榜初期只统计用户在登录状态下使用QQ音乐、酷狗、酷我三端手机APP时产生的数据。</p>
+        <p>2.榜单计分项及权重分配</p>
+        <p>榜单得分计算，由“播放指数”“传播指数”“喜好度”“数专销量”“人气指数” ，具体权重如下：</p>
+        <div>
+            <table cellspacing="0">
+                <tr>
+                    <td rowspan="3">1</td>
+                    <td class="td-t">播放指数</td>
+                    <td>权重占比：45%</td>
+                </tr>
+                <tr>
+                    <td class="td-t">音源完整播放</td>
+                    <td>统计歌曲被完整播放的次数，每个用户每天最多计10次。</td>
+                </tr>
+                <tr>
+                    <td class="td-t">MV完整播放</td>
+                    <td>统计歌曲对应MV被完整播放的次数，每个用户每天最多计3次。</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">2</td>
+                    <td class="td-t">传播指数</td>
+                    <td>权重占比：10%</td>
+                </tr>
+                <tr>
+                    <td class="td-t">音源分享</td>
+                    <td>统计歌曲被成功分享的次数，每个用户每天最多计1次</td>
+                </tr>
+                <tr>
+                    <td class="td-t">MV分享</td>
+                    <td>统计歌曲被成功分享的次数，每个用户每天最多计1次。</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">3</td>
+                    <td class="td-t">喜好度</td>
+                    <td>权重占比：15%</td>
+                </tr>
+                <tr>
+                    <td class="td-t">收藏次数</td>
+                    <td>统计歌曲音频及MV被收藏的次数。每个用户永久各只计一次。</td>
+                </tr>
+                <tr>
+                    <td class="td-t">下载次数</td>
+                    <td>统计歌曲音频及MV被下载的次数。每个用户永久各只计一次。</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">4</td>
+                    <td class="td-t">销量指数</td>
+                    <td>权重占比：10%</td>
+                </tr>
+                <tr>
+
+                    <td class="td-t">数专销量</td>
+                    <td>统计歌曲作为数专售卖时的销售额。</td>
+                </tr>
+                <tr>
+                    <td rowspan="3">5</td>
+                    <td class="td-t">人气指数</td>
+                    <td>权重占比：20%</td>
+                </tr>
+                <tr>
+                    <td class="td-t">官网点赞数</td>
+                    <td>统计每周前100名歌曲在官网上收获的点赞次数。</td>
+                </tr>
+                <tr>
+                    <td class="td-t">直播点赞数</td>
+                    <td>统计出席打歌节目的艺人在直播期间获得的额外点赞数。</td>
+                </tr>
+            </table>
+            <p>备注：直播点赞将于《由你音乐榜样》节目上线后正式开启。</p>
+        </div>
+        <p>3.榜单得分计算公式：（只计当周）</p>
+        <p> 总得分由播放指数、传播指数、喜好指数、销量指数和人气指数共同构成。指数是根据初始得分，以百分制形式呈现。而初始得分是在原始数据的基础上，经过科学的尺度压缩算法计算得来。各项指数所占权重各不相同，当前播放指数占比45%，传播指数占比10%，喜好指数占比15%，销售指数占比10%，人气指数占比20%。</p>
+        <p>参数说明</p>
+        <p>以单首歌曲计算为例</p>
+        <p>音源及MV加权播放量：n<sub>1</sub></p>
+        <p>音源及MV加权分享量：n<sub>2</sub></p>
+        <p>音源及MV加权收藏/下载量：n<sub>3</sub></p>
+        <p>数专销售额：n<sub>4</sub></p>
+        <p>收获点赞数：n<sub>5</sub></p>
+        <p>初始播放得分：x<sub>1</sub></p>
+        <p>初始传播得分：x<sub>2</sub></p>
+        <p>初始喜好得分：x<sub>3</sub></p>
+        <p>初始销量得分：x<sub>4</sub></p>
+        <p>初始人气得分：x<sub>5</sub></p>
+        <p>初始总得分：y</p>
+        <p>则，</p>
+        <p>y=(1-e<sup>-6x</sup>) / (1+e<sup>-6x</sup>)</p>
+        <p>其中，</p>
+        <p>x=(0.45*x<sub>1</sub>+0.1*x<sub>2</sub>+0.15*x<sub>3</sub>+0.1*x<sub>4</sub>+0.2*x<sub>5</sub>)<sup>2</sup></p>
+        <p>而，</p>
+        <p>(x<sub>1</sub>，x<sub>2</sub>，x<sub>3</sub>，x<sub>4</sub>，x<sub>5</sub>)是基于(n<sub>1</sub>，n<sub>2</sub>，n<sub>3</sub>，n<sub>4</sub>，n<sub>5</sub>)尺度压缩算法计算得来。</p>
+        <p>4.用户数据加权规则</p>
+        <div>
+            <table  border="1" cellspacing="0">
+                <tr>
+                    <td>权重项/用户属性</td>
+                    <td>登录用户</td>
+                    <td>手机验证用户</td>
+                    <td>VIP用户月/年</td>
+                </tr>
+                <tr>
+                    <td>播放指数</td>
+                    <td>*1</td>
+                    <td>*1.5</td>
+                    <td>*3/10</td>
+                </tr>
+                <tr>
+                    <td>分享次数</td>
+                    <td>*1</td>
+                    <td>*1.5</td>
+                    <td>*3/10</td>
+                </tr>
+                <tr>
+                    <td>收藏下载次数</td>
+                    <td>*1</td>
+                    <td>*1.5</td>
+                    <td>*3/10</td>
+                </tr>
+                <tr>
+                    <td>数专销量</td>
+                    <td>*1</td>
+                    <td>*1</td>
+                    <td>*1</td>
+                </tr>
+            </table>
+        </div>
+         <div>
+            <table  border="1" cellspacing="0">
+                <tr>
+                    <td>人气指数</td>
+                    <td>酷狗/酷我手机验证账号</td>
+                    <td>QQ音乐账号</td>
+                    <td>VIP用户月/年</td>
+                </tr>
+                <tr>
+                    <td>官网点赞次数</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>5/15</td>
+                </tr>
+
+            </table>
+            <p>备注：直播点赞统计将于《由你音乐榜样》节目上线后正式开启。</p>
+        </div>
+        <p>5.榜单合作伙伴及冠军展现</p>
+        <p>在由你音乐榜上夺得周榜冠军的歌曲，除了在QQ音乐，酷狗，酷我3平台APP轮播图有所展现之外，还会在微博，微信公众号，以及腾讯系产品矩阵中获得额外曝光。与此同时，由你音乐榜也会利用线下户外媒体对上榜歌曲和榜单冠军进行进一步的宣传。具体合作伙伴名单及曝光方式可实时关注由你音乐榜官方微博/微信了解。</p>
+        <p class="info-t">五、打歌节目</p>
+        <p>TME腾讯音乐娱乐集团，将基于由你音乐榜的数据和排名，在10月隆重推出一档打歌节目《由你音乐榜样》。紧跟当下流行热点，为处于发片期的歌手和组合提供一个宣传新歌的绝佳舞台。出席节目的艺人，将开启额外的直播间点赞通道，并汇总由你音乐榜其他数据，得出最终排名，现场公布结果。</p>
+        <p>具体信息如下：</p>
+        <p>节目名称：由你音乐榜</p>
+        <p>首播时间：2018年10月</p>
+        <p>直播平台：QQ音乐，酷狗音乐（均只在app端直播）</p>
+		<p>点播平台：QQ音乐，酷狗音乐，酷我音乐，腾讯视频，东方卫视。</p>
+        <p class="info-t">六．联系我们</p>
+        <p>由你音乐榜于9月16日正式上线，目前仍处于beta阶段，有任何建议反馈，均可通过官方微博和微信联系我们，感谢大家的支持。</p>
+        <p>微博地址：https://weibo.com/u/6573096128</p>
+        <p>微信公众号：搜索“由你音乐榜”</p>
+
+    </div>
+    <div class="rule-close-btn">
+        <img src="data:image/png;base64,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">
+    </div>
+</div>
+
+<div class="mask exponent-layer visibility">
+    <div class="exponent-layer-content">
+        <h3 class="one-px-bottom">心中的日月
+            <span>王力宏</span>
+        </h3>
+        <ul class="one-px-bottom ">
+            <li>
+                <label>上榜周数</label>
+                <span class="weeks">1</span>
+            </li>
+            <li>
+                <label>最高排名</label>
+                <span class="highestRank">1</span>
+            </li>
+        </ul>
+        <ul class="one-px-bottom">
+            <li>
+                <label>播放指数</label>
+                <span class="playIndex">2412</span>
+            </li>
+            <li>
+                <label>传播指数</label>
+                <span class="spreadIndex">5716</span>
+            </li>
+            <li>
+                <label>消费指数</label>
+                <span class="payIndex">2621</span>
+            </li>
+        </ul>
+        <ul class="one-px-bottom">
+            <li>
+                <label>喜好度</label>
+                <span class="likeIndex">2412</span>
+            </li>
+            <li>
+                <label>人气指数</label>
+                <span class="popIndex">5716</span>
+            </li>
+        </ul>
+
+    </div>
+</div>
+
+
+<div class="mask praise-layer visibility">
+    <div class="praise-layer-content">
+        <div class="praise-layer-bg">
+            <div class="praise-layer-img"></div>
+            <h2 class="praise-layer-song-name">心中的日月</h2>
+            <div class="praise-layer-singer-name">王力宏</div>
+        </div>
+        <div class="praise-layer-give">
+            <div class="praise-count-btn">-</div>
+            <input type="tel" maxlength="3" value="1"/>
+            <div class="praise-add-btn">+<div class="praise-layer-mark"><span>今日剩余10次</span></div></div>
+        </div>
+        <p class="praise-layer-vip-btn"><a>开通酷狗年费豪华VIP，获得更多票数 ></a></p>
+        <div class="praise-layer-ok-btn blue-btn">立即点赞</div>
+    </div>
+</div>
+
+
+
+<div class="mask invite-layer  visibility">
+    <div class="invite-layer-content">
+        <div class="layer-close-btn"></div>
+        <div class="invite-layer-header">
+            <img class="invite-layer-header-img" src=""/>
+        </div>
+        <p class="invite-layer-msg">点赞成功</p>
+        <div class="invite-layer-mark ">邀请好友一起为爱豆助力吧！</div>
+        <div class="invite-friend-btn blue-btn">邀请好友</div>
+    </div>
+</div>
+
+
+<div class="mask vip-layer  visibility">
+    <div class="invite-layer-content">
+        <div class="layer-close-btn"></div>
+        <div class="vip-layer-header">
+
+        </div>
+        <p class="invite-layer-msg"></p>
+        <div class="vip-layer-mark ">当日点赞数已使用完毕，开通年费豪华VIP最高每天可点赞15次！</div>
+        <div class="vip-friend-btn blue-btn">立即开通</div>
+    </div>
+</div>
+
+
+
+
+
+<div class=" share-img-layer visibility ">
+    <div class="share-img-layer-content">
+        <img src="">
+        <!--<div class="share-img-btn blue-btn">分享图片</div>-->
+    </div>
+</div>
+
+<div class="mask go-live-home-layer visibility">
+    <div class="go-live-home-layer-content">
+        <em class="go-live-home-layer-close"></em>
+        <img src="https://webimg.kgimg.com/b560548c90ff37e90d4c414fc8e557a8.png">
+        <h3 class="go-live-home-title">由你音乐榜</h3>
+        <p class="go-live-home-info">本期打榜节目正在直播中，快来围观吧！</p>
+        <div class="go-live-home-btn blue-btn">观看直播</div>
+    </div>
+</div>
+
+<div class="mask bind-phone-layer visibility ">
+    <div class="bind-phone-layer-content">
+        <div class="layer-close-btn"></div>
+        <img class="bind-phone-banner" src="https://webimg.kgimg.com/e815c8d753d31e14bdf3e40da21c477f.png"/>
+        <div class="bind-phone-msg">需要绑定手机号，才能点赞哦~</div>
+        <div class="bind-phone-btn blue-btn">去绑定</div>
+    </div>
+</div>
+
+<div class="go-app-layer visibility">
+    <img src="https://webimg.kgimg.com/51ccac69495a495d88686bf7aa2b1a52.png">
+    <p>
+        <label>酷狗音乐</label>
+        <span>就是歌多</span>
+    </p>
+    <div class="go-app-btn " >立即打开</div>
+</div>
+
+
+
+<!---------loading------------>
+<div class="loading-wrap visibility">
+    <div class="loading-box">
+        <div class="loading-inner loading-b">
+            <div class="default-loading "></div>
+            <div class="loading-c"></div>
+            <div class="loading-k"></div>
+        </div>
+        <!-- <p class="loading-desc" id="loadingDesc">加载中，请稍候</p> -->
+    </div>
+</div>
+
+<div class="canvasDiv" style="display:none;">
+    <canvas id="canvas" style="display:none;"></canvas>
+</div>
+
+<div id="qrcode"  style="display:none;" ></div>
+
+<audio src="" id="audio" style="display:none;"></audio>
+
+<script src="/js/dataCache.js"></script>
+<script src="/js/zepto.js"></script>
+<script src="/js/qrcode.min.js"></script>
+<script src="/js/mobilecall.js"></script>
+<script src="/js/fastclick.js"></script>
+<script src="/js/launchKugou.js"></script>
+<script src="/js/base.js"></script>
+<script>
+    // 检查浏览器是否对 serviceWorker 有原生支持
+    if ('serviceWorker' in navigator) {
+        // 有原生支持时，在页面加载后开启新的 Service Worker 线程，从而优化首屏加载速度
+        window.addEventListener('load', function() {
+            // register 方法里第一个参数为 Service Worker 要加载的文件；第二个参数 scope 可选，用来指定 Service Worker 控制的内容的子目录
+            navigator.serviceWorker.register('/js/ServiceWorker.js').then(function(registration) {
+                // Service Worker 注册成功
+                console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            }).catch(function(err) {
+                // Service Worker 注册失败
+                console.log('ServiceWorker registration failed: ', err);
+            });
+        });
+    }
+</script>
+</body>
+</html>
