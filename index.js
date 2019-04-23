@@ -20,6 +20,7 @@ const options = {
 }
 
 
+
 const tenUrlPath =  'https://yobang.tencentmusic.com';
 const fileCache =  getJsonFiles('public');
 fileCache.push(['/js/dataCache.js',`window.dataCache=${JSON.stringify(dataCache)}`])
@@ -27,7 +28,7 @@ let htl = fileCache.find(item=> ~item[0].indexOf('.html'))[1]
 const $ = cheerio.load(htl);
 
 
-function getDateCache(callBack) {
+function getDateCache() {
   let i = 0;
   function resCallback() {
     i++;
@@ -50,7 +51,7 @@ function getDateCache(callBack) {
         $('.list-option-choice').removeClass('list-option-choice');
         listoptionel.addClass('list-option-choice')
       }
-        htl = $.html()
+      htl = $.html()
     }
 
   }
@@ -78,7 +79,7 @@ setInterval(getDateCache,100000)
 
 
 app.get('/', (req, res) => {
-  setPushs(fileCache,res)
+  setPushs(fileCache.filter(item=>!~item[0].indexOf('ServiceWorker.js')),res)
   res.end(htl)
 })
 
